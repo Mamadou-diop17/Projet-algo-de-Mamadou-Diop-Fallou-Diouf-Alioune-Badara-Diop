@@ -3,11 +3,7 @@
 #include <string.h>
 #include <mysql/mysql.h>
 
-/*
-==========================================================
-    STRUCTURE OF A COURSE MATERIAL (SUPPORT)
-==========================================================
-*/
+
 
 typedef struct Support {
     int id;
@@ -19,11 +15,7 @@ typedef struct Support {
     char date[20];
 } Support;
 
-/*
-==========================================================
-        LINKED LIST STRUCTURE
-==========================================================
-*/
+
 
 typedef struct Node {
     Support data;
@@ -32,11 +24,7 @@ typedef struct Node {
 
 Node* head = NULL;
 
-/*
-==========================================================
-        STACK (PILE) FOR HISTORY
-==========================================================
-*/
+
 
 typedef struct StackNode {
     char action[200];
@@ -45,11 +33,7 @@ typedef struct StackNode {
 
 StackNode* stackTop = NULL;
 
-/*
-==========================================================
-        QUEUE (FILE) FOR NOTIFICATIONS
-==========================================================
-*/
+
 
 typedef struct QueueNode {
     char message[200];
@@ -58,18 +42,10 @@ typedef struct QueueNode {
 
 QueueNode *front = NULL, *rear = NULL;
 
-/*
-==========================================================
-        MYSQL CONNECTION
-==========================================================
-*/
+
 MYSQL *conn;
 
-/*
-==========================================================
-        STACK FUNCTIONS
-==========================================================
-*/
+
 void push(char *msg) {
     StackNode* newNode = (StackNode*)malloc(sizeof(StackNode));
     strcpy(newNode->action, msg);
@@ -86,11 +62,7 @@ void printStack() {
     }
 }
 
-/*
-==========================================================
-        QUEUE FUNCTIONS (NOTIFICATIONS)
-==========================================================
-*/
+
 void enqueue(char *msg) {
     QueueNode* newNode = (QueueNode*)malloc(sizeof(QueueNode));
     strcpy(newNode->message, msg);
@@ -112,11 +84,7 @@ void printQueue() {
     }
 }
 
-/*
-==========================================================
-        LINKED LIST FUNCTIONS
-==========================================================
-*/
+
 
 void insertEnd(Support s) {
     Node* newNode = (Node*)malloc(sizeof(Node));
@@ -148,11 +116,7 @@ void printList() {
     }
 }
 
-/*
-==========================================================
-        MYSQL FUNCTIONS
-==========================================================
-*/
+
 
 void connectDB() {
     conn = mysql_init(NULL);
@@ -182,11 +146,7 @@ void loadFromDB() {
     }
 }
 
-/*
-==========================================================
-        ADD A NEW SUPPORT
-==========================================================
-*/
+
 
 void addSupport() {
     Support s;
@@ -225,11 +185,7 @@ void addSupport() {
     }
 }
 
-/*
-==========================================================
-        MAIN MENU
-==========================================================
-*/
+
 
 void menu() {
     int choice;
@@ -256,11 +212,7 @@ void menu() {
     } while (choice != 0);
 }
 
-/*
-==========================================================
-        MAIN FUNCTION
-==========================================================
-*/
+
 
 int main() {
     connectDB();
@@ -268,4 +220,5 @@ int main() {
     menu();
     mysql_close(conn);
     return 0;
+
 }
